@@ -94,6 +94,3 @@ npm run build
 ```
 
 ---
-
-## 📋 Product Information
-* **Product Name:** Upchar AI
