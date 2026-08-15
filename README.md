@@ -1,23 +1,22 @@
 # Upchar AI 🩺
 
-### Track 03: Healthcare Early Risk Detection & Personalized Care Platform
-**Presenter:** Devraj Mandal  
-**Team:** Runtime Terror  
+### Clinical Diagnostic & Deterioration Prevention Platform
+**Author:** Devraj Mandal  
 **Live Site Deployment:** Vercel Hosting  
 
 ---
 
-## 📌 Problem Statement & Context
-Develop an AI-assisted healthcare platform that can identify early warning signs of critical health conditions from heterogeneous patient data and provide personalized risk assessments.
+## 📌 Context & Overview
+Upchar AI is an AI-assisted clinical diagnostic platform designed to identify early warning signs of critical health conditions from heterogeneous patient data (vitals, labs, wearables, medical history) and provide personalized risk assessments.
 * **Core Challenge:** *"Can you identify a patient's potential deterioration before it becomes an emergency — without overwhelming healthcare professionals with false alarms?"*
-* **Hard Mode Requirements:** Design the system to work with missing medical parameters and limited historical data while clearly communicating prediction confidence.
+* **Medical Constraints:** Design the system to work with missing medical parameters and limited historical data while clearly communicating prediction confidence.
 
 ---
 
-## ⚡ Meeting the Minimum Requirements
-Upchar AI satisfies all Track 03 requirements with a 100% offline, local-first secure clinical portal:
+## ⚡ Platform Capabilities
+Upchar AI satisfies all clinical requirements with a 100% offline, local-first secure clinical portal:
 
-| Track Requirement | Implementation in Upchar AI |
+| Platform Capability | Implementation in Upchar AI |
 | :--- | :--- |
 | **Patient Risk Prediction** | Multi-signal clinical risk score calculations (0–100 score). |
 | **Time-Series Analysis** | Longitudinal logs plotting 30-day historical vital trends. |
@@ -98,7 +97,6 @@ npm run build
 
 ---
 
-## 👥 Presenter & Team Info
-* **Presenter:** Devraj Mandal
-* **Team:** Runtime Terror
-* **Project Name:** Upchar AI
+## 👥 Authorship
+* **Developer:** Devraj Mandal
+* **Product Name:** Upchar AI
