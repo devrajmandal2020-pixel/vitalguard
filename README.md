@@ -1,7 +1,6 @@
 # Upchar AI 🩺
 
 ### Clinical Diagnostic & Deterioration Prevention Platform
-**Author:** Devraj Mandal  
 **Live Site Deployment:** Vercel Hosting  
 
 ---
@@ -97,6 +96,5 @@ npm run build
 
 ---
 
-## 👥 Authorship
-* **Developer:** Devraj Mandal
+## 📋 Product Information
 * **Product Name:** Upchar AI
