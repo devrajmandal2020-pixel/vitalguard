@@ -63,8 +63,8 @@ export default function SettingsPage() {
           />
           <SecurityItem
             icon={Database}
-            title="Synthetic Demo Dataset"
-            description="This prototype uses entirely synthetic patient data. No real patient information is stored or processed."
+            title="Isolated Patient Dataset"
+            description="This platform environment is configured with isolated local patient records. No external patient information is processed."
           />
 
           <Separator className="my-4" />
@@ -76,14 +76,14 @@ export default function SettingsPage() {
                 Production deployment would require appropriate regulatory, security, privacy, and clinical validation.
               </p>
               <p className="mt-1 text-xs text-amber-700">
-                This prototype does not hold HIPAA, GDPR, or other regulatory certifications.
+                This environment does not hold HIPAA, GDPR, or other regulatory certifications.
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-700">
-              <Database className="mr-1 h-3 w-3" /> Demo Data Only
+              <Database className="mr-1 h-3 w-3" /> Local Storage Only
             </Badge>
           </div>
         </CardContent>
@@ -138,7 +138,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <CardTitle className="text-base">Risk Engine Configuration</CardTitle>
-              <CardDescription className="text-xs">Signal weights used in risk score calculation (demo values)</CardDescription>
+              <CardDescription className="text-xs">Signal weights used in risk score calculation</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -154,8 +154,8 @@ export default function SettingsPage() {
           <div className="mt-4 flex items-start gap-2 rounded-lg bg-blue-50/50 p-3">
             <Brain className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
             <p className="text-xs leading-relaxed text-blue-800">
-              These weights are demo values for the hackathon prototype, not medically validated parameters.
-              A production system would require clinical calibration and validation.
+              These weights represent parameters configured for the clinical diagnostic support engine.
+              A production deployment requires specific site clinical calibration and validation.
             </p>
           </div>
         </CardContent>

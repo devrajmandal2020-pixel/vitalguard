@@ -229,7 +229,7 @@ export default function AddPatientPage() {
       </form>
 
       <p className="text-xs text-muted-foreground">
-        VitalGuard AI is a prototype for clinical decision support. Risk scores are not medical diagnoses and should be reviewed by qualified healthcare professionals.
+        Upchar AI is a prototype for clinical decision support. Risk scores are not medical diagnoses and should be reviewed by qualified healthcare professionals.
       </p>
     </div>
   );

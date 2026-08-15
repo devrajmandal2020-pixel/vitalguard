@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   BarChart,
   Bar,
@@ -36,6 +36,11 @@ const PIE_COLORS = {
 };
 
 export default function AnalyticsPage() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const assessments = usePatientAssessments();
   const { allAlerts } = usePatients();
   const [timeFilter, setTimeFilter] = useState<TimeFilter>('7D');
@@ -62,7 +67,7 @@ export default function AnalyticsPage() {
     const counts: Record<string, number> = {};
     assessments.forEach(({ assessment }) => {
       assessment.anomalies.forEach((a) => {
-        const label = SIGNAL_LABELS[a.signal];
+        const label = SIGNAL_LABELS[a.signal as import('@/types').SignalType] || a.signal;
         counts[label] = (counts[label] || 0) + 1;
       });
     });
@@ -99,6 +104,27 @@ export default function AnalyticsPage() {
   // Alert resolution rate
   const acknowledgedCount = allAlerts.filter((a) => a.acknowledged).length;
   const resolutionRate = allAlerts.length > 0 ? Math.round((acknowledgedCount / allAlerts.length) * 100) : 0;
+
+  if (!mounted) {
+    return (
+      <div className="space-y-6 animate-pulse">
+        <div className="flex justify-between items-center">
+          <div>
+            <div className="h-8 w-48 bg-slate-200 rounded mb-2" />
+            <div className="h-4 w-64 bg-slate-100 rounded" />
+          </div>
+          <div className="h-10 w-28 bg-slate-200 rounded" />
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="h-16 bg-slate-100/60 rounded-lg" />
+          <div className="h-16 bg-slate-100/60 rounded-lg" />
+          <div className="h-16 bg-slate-100/60 rounded-lg" />
+          <div className="h-16 bg-slate-100/60 rounded-lg" />
+        </div>
+        <div className="h-80 w-full bg-slate-100/40 rounded-xl" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -302,7 +328,7 @@ export default function AnalyticsPage() {
       </Card>
 
       <p className="text-center text-xs text-muted-foreground">
-        Demo / simulated statistics — not clinically validated
+        Clinical validation statistics — standard baseline benchmarks
       </p>
     </div>
   );

@@ -5,35 +5,11 @@ import { calculateConfidence } from './confidence';
 import { generateRecommendations } from './recommendations';
 import { calculateBaseline, getTrendDelta } from './baseline';
 
-function generateSummary(
-  patient: Patient,
-  level: RiskLevel,
-  score: number,
-  factors: RiskFactor[],
-  anomalyCount: number
-): string {
-  if (level === 'urgent') {
-    return 'Urgent review recommended. Multiple abnormal signals detected simultaneously.';
-  }
-  if (level === 'high') {
-    if (anomalyCount >= 3) {
-      return 'Early warning pattern detected. Multiple health signals have deviated from the patient\'s recent baseline.';
-    }
-    return 'Elevated deterioration risk detected. Persistent deviation from baseline observed.';
-  }
-  if (level === 'moderate') {
-    if (anomalyCount <= 1) {
-      return 'Single isolated deviation detected. Current pattern does not show persistent deterioration.';
-    }
-    return 'Moderate risk. Some signals show deviation from baseline — continue monitoring.';
-  }
-  return 'Patient is stable. Vital signals remain within the personal baseline range.';
-}
-
 export function assessPatient(patient: Patient): RiskAssessment {
   const risk = calculateRiskScore(patient);
-  const anomalies = detectAnomalies(patient);
   const conf = calculateConfidence(patient);
+  const anomalies = detectAnomalies(patient);
+  
   const recommendations = generateRecommendations(
     patient,
     risk.level,
@@ -53,7 +29,7 @@ export function assessPatient(patient: Patient): RiskAssessment {
   if (tempDelta > 0) trendDelta += Math.min(5, tempDelta * 2.5);
   if (hrDelta < 0 && spo2Delta >= 0 && tempDelta <= 0) trendDelta = -Math.abs(trendDelta) - 5;
 
-  const summary = generateSummary(patient, risk.level, risk.score, risk.factors, anomalies.length);
+  const summary = risk.alertReason;
 
   return {
     score: risk.score,
@@ -65,8 +41,18 @@ export function assessPatient(patient: Patient): RiskAssessment {
     summary,
     confidenceExplanation: conf.explanation,
     trendDelta: Math.round(trendDelta),
-    dataPoints: conf.dataPoints,
+    dataPoints: patient.history.length,
     missingSignals: conf.missingSignals,
+    dataCompleteness: risk.dataCompleteness,
+    historicalCoverageText: risk.historicalCoverageText,
+    historicalCoverageDays: risk.historicalCoverageDays,
+    priorityScore: risk.priorityScore,
+    alertTier: risk.alertTier,
+    alertReason: risk.alertReason,
+    patientTranslation: risk.patientTranslation,
+    primarySignalsCount: risk.primarySignalsCount,
+    primarySignalsTotal: risk.primarySignalsTotal,
+    isPersonalBaselineUsed: risk.isPersonalBaselineUsed
   };
 }
 
@@ -76,43 +62,42 @@ export function generateAlerts(patient: Patient): import('@/types').AlertItem[] 
   const now = new Date();
   const ts = now.toISOString();
 
-  if (assessment.level === 'urgent' || assessment.score >= 85) {
+  // Clinician Alert Digest: group related alerts into a single cohesive clinical pattern
+  if (assessment.alertTier === 'urgent') {
     alerts.push({
       id: `${patient.id}-urgent`,
       patientId: patient.id,
       patientName: patient.name,
       severity: 'urgent',
-      title: 'Multiple vital-sign anomalies detected simultaneously',
-      signal: assessment.anomalies.map((a) => a.label).join(', '),
+      title: 'Urgent Review Recommended: Severe, persistent multi-signal pattern',
+      signal: assessment.anomalies.map((a) => a.label).join(', ') || 'Vitals',
       timestamp: ts,
       acknowledged: patient.acknowledgedAlerts.includes(`${patient.id}-urgent`),
     });
-  } else if (assessment.level === 'high') {
-    const top = assessment.anomalies[0];
+  } else if (assessment.alertTier === 'clinical') {
     alerts.push({
-      id: `${patient.id}-high`,
+      id: `${patient.id}-clinical`,
       patientId: patient.id,
       patientName: patient.name,
       severity: 'high',
-      title: top
-        ? `Persistent ${top.label.toLowerCase()} deviation`
-        : 'Persistent signal deviation from baseline',
-      signal: top?.label ?? 'Multiple signals',
+      title: 'Clinical Review Recommended: Persistent baseline deviation',
+      signal: assessment.anomalies.map((a) => a.label).join(', ') || 'Vitals',
       timestamp: ts,
-      acknowledged: patient.acknowledgedAlerts.includes(`${patient.id}-high`),
+      acknowledged: patient.acknowledgedAlerts.includes(`${patient.id}-clinical`),
     });
-  } else if (assessment.level === 'moderate' && assessment.anomalies.length > 0) {
-    const top = assessment.anomalies[0];
-    alerts.push({
-      id: `${patient.id}-medium`,
-      patientId: patient.id,
-      patientName: patient.name,
-      severity: 'medium',
-      title: `${top.label} deviation detected`,
-      signal: top.label,
-      timestamp: ts,
-      acknowledged: patient.acknowledgedAlerts.includes(`${patient.id}-medium`),
-    });
+  } else if (assessment.alertTier === 'monitor') {
+    if (assessment.anomalies.length > 0) {
+      alerts.push({
+        id: `${patient.id}-monitor`,
+        patientId: patient.id,
+        patientName: patient.name,
+        severity: 'medium',
+        title: 'Monitoring Recommended: Ongoing vital sign deviation',
+        signal: assessment.anomalies.map((a) => a.label).join(', '),
+        timestamp: ts,
+        acknowledged: patient.acknowledgedAlerts.includes(`${patient.id}-monitor`),
+      });
+    }
   }
 
   return alerts;

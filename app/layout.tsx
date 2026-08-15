@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'VitalGuard AI — Detect Risk Earlier. Personalize Care Smarter.',
+  title: 'Upchar AI — Detect Risk Earlier. Personalize Care Smarter.',
   description:
     'AI-assisted monitoring that turns fragmented health signals into explainable early-warning insights.',
 };

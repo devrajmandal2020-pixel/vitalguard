@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Search, Filter, ArrowRight, UserPlus, Eye, TrendingUp } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,6 +28,11 @@ const riskFilters: { value: RiskLevel | 'all'; label: string }[] = [
 ];
 
 export default function PatientsPage() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const assessments = usePatientAssessments();
   const [search, setSearch] = useState('');
   const [riskFilter, setRiskFilter] = useState<RiskLevel | 'all'>('all');
@@ -44,6 +49,22 @@ export default function PatientsPage() {
       })
       .sort((a, b) => b.assessment.score - a.assessment.score);
   }, [assessments, search, riskFilter]);
+
+  if (!mounted) {
+    return (
+      <div className="space-y-6 animate-pulse">
+        <div className="flex justify-between items-center">
+          <div>
+            <div className="h-8 w-48 bg-slate-200 rounded mb-2" />
+            <div className="h-4 w-64 bg-slate-100/80 rounded" />
+          </div>
+          <div className="h-10 w-28 bg-slate-200 rounded" />
+        </div>
+        <div className="h-10 w-full bg-slate-100 rounded-lg" />
+        <div className="h-64 bg-slate-100/60 rounded-xl" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

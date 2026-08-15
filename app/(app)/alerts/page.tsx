@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Bell, CheckCircle2, AlertOctagon, AlertTriangle, Info, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -44,6 +44,11 @@ const severityConfig = {
 };
 
 export default function AlertsPage() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const { allAlerts, acknowledgeAlert } = usePatients();
   const [filter, setFilter] = useState<FilterTab>('all');
 
@@ -76,6 +81,28 @@ export default function AlertsPage() {
       description: `${patientName}'s alert has been acknowledged.`,
     });
   };
+
+  if (!mounted) {
+    return (
+      <div className="space-y-6 animate-pulse">
+        <div>
+          <div className="h-8 w-48 bg-slate-200 rounded mb-2" />
+          <div className="h-4 w-64 bg-slate-100 rounded" />
+        </div>
+        <div className="grid gap-3 sm:grid-cols-4">
+          <div className="h-16 bg-slate-100 rounded-lg" />
+          <div className="h-16 bg-slate-100 rounded-lg" />
+          <div className="h-16 bg-slate-100 rounded-lg" />
+          <div className="h-16 bg-slate-100 rounded-lg" />
+        </div>
+        <div className="h-10 w-full bg-slate-100 rounded-lg" />
+        <div className="space-y-3">
+          <div className="h-20 bg-slate-100 rounded-lg" />
+          <div className="h-20 bg-slate-100 rounded-lg" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

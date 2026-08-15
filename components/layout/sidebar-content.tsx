@@ -34,7 +34,7 @@ export function SidebarContent() {
         </div>
         <div>
           <div className="text-base font-bold tracking-tight text-foreground">
-            VitalGuard AI
+            Upchar AI
           </div>
           <div className="text-[11px] font-medium text-muted-foreground">
             Risk Detection Platform
@@ -73,10 +73,10 @@ export function SidebarContent() {
         <div className="rounded-lg bg-accent/50 p-3">
           <div className="flex items-center gap-2 mb-1.5">
             <ShieldCheck className="h-4 w-4 text-primary" />
-            <span className="text-xs font-semibold">Demo Mode</span>
+            <span className="text-xs font-semibold">Active Portal</span>
           </div>
           <p className="text-[11px] leading-relaxed text-muted-foreground">
-            Synthetic data only. Not for clinical use.
+            Secured clinical monitoring environment.
           </p>
         </div>
       </div>

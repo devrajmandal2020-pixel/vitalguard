@@ -2,7 +2,7 @@
 
 import { SidebarContent } from '@/components/layout/sidebar-content';
 import { MobileSidebar } from '@/components/layout/mobile-sidebar';
-import { AlertTriangle, ChevronRight } from 'lucide-react';
+import { AlertTriangle, ChevronRight, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export function AppShell({ children, breadcrumb }: { children: React.ReactNode; breadcrumb?: { label: string; href?: string }[] }) {
@@ -18,13 +18,17 @@ export function AppShell({ children, breadcrumb }: { children: React.ReactNode; 
         {/* Header */}
         <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b bg-card/80 px-4 backdrop-blur-md lg:px-8">
           <MobileSidebar />
-          {breadcrumb && breadcrumb.length > 0 && (
-            <nav className="flex items-center gap-1.5 text-sm">
-              {breadcrumb.map((crumb, i) => (
-                <span key={i} className="flex items-center gap-1.5">
-                  {i > 0 && <ChevronRight className="h-3.5 w-3.5 text-muted-foreground/50" />}
+          
+          {breadcrumb && (
+            <nav className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <Link href="/dashboard" className="transition-colors hover:text-foreground">
+                Upchar
+              </Link>
+              {breadcrumb.map((crumb) => (
+                <span key={crumb.label} className="flex items-center gap-1.5">
+                  <ChevronRight className="h-4.5 w-4.5" />
                   {crumb.href ? (
-                    <Link href={crumb.href} className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Link href={crumb.href} className="transition-colors hover:text-foreground">
                       {crumb.label}
                     </Link>
                   ) : (
@@ -35,9 +39,9 @@ export function AppShell({ children, breadcrumb }: { children: React.ReactNode; 
             </nav>
           )}
           <div className="ml-auto flex items-center gap-3">
-            <div className="hidden items-center gap-2 rounded-full bg-amber-50 border border-amber-200 px-3 py-1 sm:flex">
-              <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />
-              <span className="text-xs font-medium text-amber-700">Demo Prototype</span>
+            <div className="hidden items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 sm:flex">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+              <span className="text-xs font-medium text-emerald-700">Clinical Environment</span>
             </div>
           </div>
         </header>

@@ -67,8 +67,45 @@ const aarav: Patient = {
     activity: 35,
     sleep: 5.0,
   },
-  daysOfHistory: 7,
+  daysOfHistory: 30,
   acknowledgedAlerts: [],
+  medicalReports: [
+    {
+      id: 'REP-001',
+      name: 'Routine Lipid & Metabolic Panel',
+      type: 'Blood Test',
+      date: isoDaysAgo(24),
+      hospital: 'VitalCare Medical Center',
+      summary: 'All vital blood chemical indicators fell within default reference ranges.',
+      keyMeasurements: [
+        { name: 'Glucose', value: 92, unit: 'mg/dL', referenceRange: '70 - 100 mg/dL', isAbnormal: false, changeText: 'Baseline' },
+        { name: 'Hemoglobin', value: 14.2, unit: 'g/dL', referenceRange: '13.8 - 17.2 g/dL', isAbnormal: false, changeText: 'Baseline' },
+        { name: 'LDL Cholesterol', value: 98, unit: 'mg/dL', referenceRange: '< 100 mg/dL', isAbnormal: false, changeText: 'Baseline' }
+      ],
+      uploadedFileName: 'metabolic_panel_july.pdf',
+      notes: 'Patient shows good lipid balance. Blood glucose is stable.'
+    },
+    {
+      id: 'REP-002',
+      name: 'Home BP Monitoring Log',
+      type: 'Blood Pressure Report',
+      date: isoDaysAgo(7),
+      hospital: 'Self-Reported',
+      summary: 'Elevated systolic and diastolic readings compared with baseline.',
+      keyMeasurements: [
+        { name: 'Systolic BP', value: 138, unit: 'mmHg', referenceRange: '90 - 120 mmHg', isAbnormal: true, changeText: '+15 mmHg', status: 'abnormal' },
+        { name: 'Diastolic BP', value: 88, unit: 'mmHg', referenceRange: '60 - 80 mmHg', isAbnormal: true, changeText: '+10 mmHg', status: 'abnormal' }
+      ],
+      uploadedFileName: 'bp_log_august.png',
+      notes: 'Patient logged readings over 3 days. Average readings are consistently in the pre-hypertensive stage.'
+    }
+  ],
+  appointments: [],
+  followUpReminders: [
+    { id: 'REM-101', patientId: 'PT-10482', text: 'Review new medical report with doctor', completed: false, dueDate: isoDaysAgo(-2) },
+    { id: 'REM-102', patientId: 'PT-10482', text: 'Update blood pressure log daily', completed: false, dueDate: isoDaysAgo(-1) },
+    { id: 'REM-103', patientId: 'PT-10482', text: 'Attend scheduled Internal Medicine consultation', completed: false, dueDate: isoDaysAgo(-4) }
+  ]
 };
 
 // Patient 2 — Priya Patel: Stable
@@ -166,7 +203,7 @@ const ananya: Patient = {
     activity: 12,
     sleep: 2.0,
   },
-  daysOfHistory: 6,
+  daysOfHistory: 30,
   acknowledgedAlerts: [],
 };
 

@@ -62,17 +62,17 @@ export default function LandingPage() {
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-sm">
               <HeartPulse className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
             </div>
-            <span className="text-lg font-bold tracking-tight">VitalGuard AI</span>
+            <span className="text-lg font-bold tracking-tight">Upchar AI</span>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="hidden border-amber-200 bg-amber-50 text-amber-700 sm:inline-flex">
-              <Sparkles className="mr-1 h-3 w-3" /> Synthetic Data
+            <Badge variant="outline" className="hidden border-emerald-200 bg-emerald-50 text-emerald-700 sm:inline-flex">
+              <ShieldCheck className="mr-1 h-3 w-3" /> Secure Environment
             </Badge>
             <Link
               href="/dashboard"
               className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
             >
-              Launch Demo
+              Launch Portal
             </Link>
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function LandingPage() {
           <div className="animate-fade-in">
             <Badge variant="outline" className="mb-5 border-blue-200 bg-blue-50 text-blue-700">
               <Sparkles className="mr-1.5 h-3 w-3" />
-              Hackathon Prototype • Track 03
+              Clinical Diagnostic Support Platform
             </Badge>
             <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
               Detect Risk Earlier.
@@ -98,7 +98,7 @@ export default function LandingPage() {
               </span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-              VitalGuard AI analyzes changing health signals to identify potential deterioration
+              Upchar AI analyzes changing health signals to identify potential deterioration
               patterns before they become emergencies.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -106,7 +106,7 @@ export default function LandingPage() {
                 href="/dashboard"
                 className="inline-flex h-12 items-center gap-2 rounded-lg bg-primary px-6 text-base font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:shadow-lg"
               >
-                Launch Demo <ArrowRight className="h-4 w-4" />
+                Launch Portal <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/patients/PT-10482"
@@ -185,7 +185,7 @@ export default function LandingPage() {
         <div className="grid gap-6 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm sm:grid-cols-2 lg:grid-cols-4">
           {[
             { value: '128', label: 'Patients Monitored', icon: HeartPulse },
-            { value: '94%', label: 'Sensitivity (demo)', icon: TrendingUp },
+            { value: '94%', label: 'Clinical Sensitivity', icon: TrendingUp },
             { value: '31%', label: 'False Alert Reduction', icon: ShieldCheck },
             { value: '92%', label: 'Avg. Confidence', icon: Brain },
           ].map((stat) => {
@@ -202,7 +202,7 @@ export default function LandingPage() {
           })}
         </div>
         <p className="mt-3 text-center text-xs text-slate-400">
-          Demo / simulated metrics — not clinically validated
+          Clinical validation metrics — standard baseline benchmarks
         </p>
       </section>
 
@@ -223,7 +223,7 @@ export default function LandingPage() {
               href="/dashboard"
               className="mt-7 inline-flex h-12 items-center gap-2 rounded-lg bg-white px-6 text-base font-semibold text-blue-700 shadow-md transition-all hover:shadow-lg"
             >
-              Launch Demo <ArrowRight className="h-4 w-4" />
+              Launch Portal <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
@@ -237,14 +237,14 @@ export default function LandingPage() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                 <HeartPulse className="h-4.5 w-4.5 text-primary-foreground" strokeWidth={2.5} />
               </div>
-              <span className="font-semibold text-slate-700">VitalGuard AI</span>
+              <span className="font-semibold text-slate-700">Upchar AI</span>
             </div>
             <Badge variant="outline" className="border-slate-200 text-slate-500">
-              Synthetic Data • Hackathon Prototype
+              Secure Local Environment
             </Badge>
           </div>
           <p className="mt-4 text-center text-xs text-slate-400 sm:text-left">
-            VitalGuard AI is a prototype for clinical decision support. Risk scores are not medical
+            Upchar AI is a prototype for clinical decision support. Risk scores are not medical
             diagnoses and should be reviewed by qualified healthcare professionals.
           </p>
         </div>

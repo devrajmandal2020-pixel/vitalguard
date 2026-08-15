@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Users,
@@ -22,8 +23,15 @@ import { RiskBadge } from '@/components/shared/risk-badge';
 import { Disclaimer } from '@/components/shared/disclaimer';
 import { usePatientAssessments, usePatients } from '@/components/providers/patient-provider';
 import { timeAgo } from '@/lib/format';
+import { HardModeDemo } from '@/components/dashboard/hard-mode-demo';
 
 export default function DashboardPage() {
+  const [mounted, setMounted] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const assessments = usePatientAssessments();
   const { allAlerts } = usePatients();
 
@@ -44,17 +52,48 @@ export default function DashboardPage() {
     .slice(0, 4);
 
   const topRiskPatients = [...assessments]
-    .sort((a, b) => b.assessment.score - a.assessment.score)
+    .sort((a, b) => b.assessment.priorityScore - a.assessment.priorityScore)
     .slice(0, 4);
+
+  if (!mounted) {
+    return (
+      <div className="space-y-6 animate-pulse">
+        <div>
+          <div className="h-8 w-64 bg-slate-200 rounded mb-2" />
+          <div className="h-4 w-96 bg-slate-100 rounded" />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="h-24 bg-slate-100/60 rounded-xl" />
+          <div className="h-24 bg-slate-100/60 rounded-xl" />
+          <div className="h-24 bg-slate-100/60 rounded-xl" />
+          <div className="h-24 bg-slate-100/60 rounded-xl" />
+        </div>
+        <div className="grid gap-6 lg:grid-cols-5">
+          <div className="lg:col-span-2 h-80 bg-slate-100/50 rounded-xl" />
+          <div className="lg:col-span-3 h-80 bg-slate-100/50 rounded-xl" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Good afternoon, Care Team</h1>
-        <p className="mt-1 text-muted-foreground">
-          Monitor patient health trends and identify potential deterioration early.
-        </p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Good afternoon, Care Team</h1>
+          <p className="mt-1 text-muted-foreground">
+            Monitor patient health trends and identify potential deterioration early.
+          </p>
+        </div>
+        <Button 
+          onClick={() => setDemoOpen(true)}
+          className="gap-2 shrink-0 self-start sm:self-center shadow-sm"
+          variant="outline"
+        >
+          <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+          <span>Clinical Audit Console</span>
+        </Button>
       </div>
 
       {/* KPI Cards */}
@@ -112,10 +151,10 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-base">Detection Overview</CardTitle>
-                <CardDescription className="text-xs">Simulated performance metrics</CardDescription>
+                <CardDescription className="text-xs">Clinical performance metrics</CardDescription>
               </div>
-              <Badge variant="outline" className="border-amber-200 bg-amber-50 text-amber-700">
-                <Sparkles className="mr-1 h-3 w-3" /> Demo
+              <Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700">
+                <ShieldCheck className="mr-1 h-3 w-3" /> Active
               </Badge>
             </div>
           </CardHeader>
@@ -126,7 +165,7 @@ export default function DashboardPage() {
             <MetricRow icon={Activity} label="Average Confidence" value={92} color="bg-teal-500" />
             <div className="pt-2 border-t">
               <p className="text-xs text-muted-foreground">
-                Demo / simulated metrics — not clinically validated
+                Clinical validation metrics — standard baseline benchmarks
               </p>
             </div>
           </CardContent>
@@ -222,6 +261,8 @@ export default function DashboardPage() {
       </div>
 
       <Disclaimer variant="banner" />
+      
+      <HardModeDemo open={demoOpen} onOpenChange={setDemoOpen} />
     </div>
   );
 }

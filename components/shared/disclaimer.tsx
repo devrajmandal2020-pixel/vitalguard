@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/tooltip';
 
 export function Disclaimer({ variant = 'inline' }: { variant?: 'inline' | 'banner' | 'tooltip' }) {
-  const text = 'VitalGuard AI is a prototype for clinical decision support. Risk scores are not medical diagnoses and should be reviewed by qualified healthcare professionals.';
+  const text = 'Upchar AI is a prototype for clinical decision support. Risk scores are not medical diagnoses and should be reviewed by qualified healthcare professionals.';
 
   if (variant === 'banner') {
     return (

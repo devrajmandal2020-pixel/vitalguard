@@ -11,6 +11,7 @@ interface PatientContextValue {
   acknowledgeAlert: (patientId: string, alertId: string) => void;
   addPatient: (patient: Patient) => void;
   getPatient: (id: string) => Patient | undefined;
+  updatePatient: (id: string, updates: Partial<Patient>) => void;
   allAlerts: ReturnType<typeof generateAlerts>;
 }
 
@@ -33,6 +34,12 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
     setPatients((prev) => [patient, ...prev]);
   }, []);
 
+  const updatePatient = useCallback((id: string, updates: Partial<Patient>) => {
+    setPatients((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, ...updates } : p))
+    );
+  }, []);
+
   const getPatient = useCallback(
     (id: string) => patients.find((p) => p.id === id),
     [patients]
@@ -47,6 +54,7 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
     acknowledgeAlert,
     addPatient,
     getPatient,
+    updatePatient,
     allAlerts,
   };
 

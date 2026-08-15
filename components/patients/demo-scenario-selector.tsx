@@ -31,7 +31,7 @@ export function DemoScenarioSelector({ currentScenario }: { currentScenario: str
     const patient = patients.find((p) => p.scenario === scenario);
     if (patient) {
       router.push(`/patients/${patient.id}`);
-      toast.success('Demo scenario changed', {
+      toast.success('Clinical Profile Updated', {
         description: `Now viewing: ${scenario}`,
       });
     }
@@ -41,7 +41,7 @@ export function DemoScenarioSelector({ currentScenario }: { currentScenario: str
     <div className="flex items-center gap-2.5">
       <div className="flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-3 py-2">
         <Layers className="h-4 w-4 text-primary" />
-        <span className="text-xs font-semibold text-primary">Demo Scenario</span>
+        <span className="text-xs font-semibold text-primary">Clinical Profile</span>
       </div>
       <Select value={currentScenario} onValueChange={handleChange}>
         <SelectTrigger className="w-[220px]">
