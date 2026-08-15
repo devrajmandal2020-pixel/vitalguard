@@ -1,7 +1,6 @@
 # Upchar AI 🩺
 
-### Clinical Diagnostic & Deterioration Prevention Platform
-**Live Site Deployment:** Vercel Hosting  
+
 
 ---
 
